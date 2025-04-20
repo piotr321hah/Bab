@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiotrHaka | Roblox Developer Specializing in UI & Systems</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1989fa;
+            --secondary-color: #126bde;
+            --background-color: #f4f5f7;
+            --card-color: #ffffff;
+            --text-color: #2e3440;
+            --accent-color: #ff6b6b;
+            --robux-color: #00b06f;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: var(--card-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--accent-color);
+            border-radius: 6px;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            padding: 10rem 2rem 6rem;
+            background: linear-gradient(135deg, #e6f7ff, #f0f5ff);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-blocks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .block {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .block-1 {
+            top: 10%;
+            left: 10%;
+            background-color: var(--accent-color);
+            transform: rotate(15deg);
+        }
+
+        .block-2 {
+            top: 20%;
+            right: 15%;
+            background-color: var(--primary-color);
+            transform: rotate(-10deg);
+        }
+
+        .block-3 {
+            bottom: 15%;
+            left: 15%;
+            background-color: var(--robux-color);
+            transform: rotate(20deg);
+        }
+
+        .block-4 {
+            bottom: 20%;
+            right: 10%;
+            background-color: #ffdd57;
+            transform: rotate(-5deg);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin: 0.5rem;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .experience-badge {
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+            border: 1px solid rgba(25, 137, 250, 0.3);
+        }
+
+        .project-badge {
+            background-color: #ffebee;
+            color: var(--accent-color);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            animation: subtle-pulse 2s infinite;
+        }
+
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(25, 137, 250, 0.3);
+            margin-top: 1.5rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(25, 137, 250, 0.4);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 0.8rem auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .ui-icon {
+            background-color: #7e57c2;
+        }
+
+        .data-icon {
+            background-color: #26a69a;
+        }
+
+        .mechanics-icon {
+            background-color: #ec407a;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card li::before {
+            content: '•';
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .current-project {
+            background-color: var(--card-color);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .current-project h3 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .commission-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            background-color: var(--card-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            min-width: 180px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--card-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            color: var(--text-color);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--robux-color);
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .robux-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: var(--robux-color);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .robux-only {
+            background-color: #e8f5e9;
+            color: var(--robux-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 176, 111, 0.3);
+        }
+
+        .contact-card {
+            background-color: var(--card-color);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+
+        .contact-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            flex: 1;
+            min-width: 250px;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .discord-item {
+            border-left: 4px solid #5865f2;
+        }
+
+        .roblox-item {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .contact-title {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .contact-id {
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+        }
+
+        .discord-id {
+            background-color: #e9ebfe;
+            color: #5865f2;
+            border: 1px solid rgba(88, 101, 242, 0.3);
+        }
+
+        .roblox-id {
+            background-color: #ffeeee;
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .footer {
+            background-color: var(--card-color);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .specialty-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .specialty-badge {
+            background-color: #f1f8ff;
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(25, 137, 250, 0.3);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .roblox-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-item {
+            background-color: var(--card-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            flex: 1;
+            min-width: 220px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: var(--card-color);
+                flex-direction: column;
+                padding: 1.5rem;
+                min-width: 200px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 var(--border-radius) var(--border-radius);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .commission-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                PiotrHaka
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#current-project">Current Experience</a></li>
+                <li><a href="#commissions">Commissions</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">☰</div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-blocks">
+            <div class="block block-1"></div>
+            <div class="block block-2"></div>
+            <div class="block block-3"></div>
+            <div class="block block-4"></div>
+        </div>
+        <div class="hero-content">
+            <h1>PiotrHaka</h1>
+            <span class="badge experience-badge">3+ Years of Roblox Development</span>
+            <span class="badge project-badge">Building a Major Experience!</span>
+            <p>Roblox developer specializing in UI systems, DataStore2 implementations, and game mechanics</p>
+            <a href="#contact" class="cta-button">Hire Me for Your Experience</a>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Hi, I'm PiotrHaka! I've been developing on Roblox for over 3 years, specializing in UI scripting with Roact, 
+            DataStore2 implementations, and fundamental Luau game mechanics. While I'm still improving my skills in complex systems 
+            like pathfinding and combat, I excel at creating polished user interfaces and robust data management solutions.
+        </p>
+        
+        <div class="specialty-badges">
+            <span class="specialty-badge">UI Expert</span>
+            <span class="specialty-badge">DataStore Specialist</span>
+            <span class="specialty-badge">Luau Scripter</span>
+        </div>
+
+        <div class="roblox-features">
+            <div class="feature-item">
+                <div class="feature-icon">💻</div>
+                <div class="feature-title">Roblox Studio</div>
+                <p>Expert in using all aspects of Roblox Studio environment</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔧</div>
+                <div class="feature-title">Luau Scripts</div>
+                <p>Proficient in writing efficient, maintainable Luau code</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎮</div>
+                <div class="feature-title">Game Development</div>
+                <p>Creating engaging and polished Roblox experiences</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-grid">
+            <div class="card">
+                <h3>
+                    <div class="card-icon ui-icon"><i class="fas fa-desktop"></i></div>
+                    UI Systems
+                </h3>
+                <ul>
+                    <li>StarterGui interface development</li>
+                    <li>Custom Roblox UI components</li>
+                    <li>Dynamic menus and inventory systems</li>
+                    <li>TweenService animations & transitions</li>
+                    <li>UX optimization with Roblox UI layouts</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>
+                    <div class="card-icon data-icon"><i class="fas fa-database"></i></div>
+                    Data Management
+                </h3>
+                <ul>
+                    <li>DataStore2 implementation</li>
+                    <li>Player data persistence systems</li>
+                    <li>PlayerAdded/PlayerRemoving hooks</li>
+                    <li>Auto-save & backup systems</li>
+                    <li>Session locking & error handling</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>
+                    <div class="card-icon mechanics-icon"><i class="fas fa-cogs"></i></div>
+                    Game Mechanics
+                </h3>
+                <ul>
+                    <li>Character controllers</li>
+                    <li>ServerScriptService architecture</li>
+                    <li>Basic interaction systems</li>
+                    <li>ReplicatedStorage frameworks</li>
+                    <li>Currently learning PathfindingService</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="current-project" class="section">
+        <h2 class="section-title">Current Experience in Development</h2>
+        <div class="current-project">
+            <h3>Ambitious New Roblox Experience</h3>
+            <p>I'm currently working on a major Roblox experience that showcases my UI and data management expertise in a large-scale application.</p>
+            <p style="margin-top: 1rem; color: #777;">While details are under NDA, this project represents my most ambitious work to date and demonstrates my ability to create complex Roblox systems.</p>
+        </div>
+    </section>
+
+    <section id="commissions" class="section">
+        <h2 class="section-title">Commission Experience</h2>
+        <div class="commission-stats">
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Completed Commissions</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">On-Time Delivery</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3+</div>
+                <div class="stat-label">Years in Studio</div>
+            </div>
+        </div>
+        <p style="text-align: center; max-width: 800px; margin: 2rem auto;">
+            I've successfully completed over 15 commissions for Roblox developers, primarily focusing on user interfaces and data systems. 
+            I'm known for clear communication, timely delivery, and well-documented Luau scripts that are easy to maintain.
+        </p>
+    </section>
+
+    <section id="pricing" class="section">
+        <h2 class="section-title">Robux Pricing</h2>
+        <div class="robux-only">Accepting payment in Robux through Group Funds or Game Pass</div>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>UI Systems</h3>
+                <div class="price">
+                    <span class="robux-icon"></span>
+                    200-1,000
+                </div>
+                <p>Custom StarterGui elements, interfaces, and menus for your Roblox experience</p>
+            </div>
+            <div class="pricing-card">
+                <h3>Data Systems</h3>
+                <div class="price">
+                    <span class="robux-icon"></span>
+                    500-2,000
+                </div>
+                <p>DataStore2 implementations, player data persistence, and profile services</p>
+            </div>
+            <div class="pricing-card">
+                <h3>Large Projects</h3>
+                <div class="price">
+                    <span class="robux-icon"></span>
+                    Custom Quote
+                </div>
+                <p>Complete UI overhauls and advanced game systems for your experience</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem;">
+            Pricing varies based on project complexity and scope. I'll provide a detailed quote before starting any work.
+        </p>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-card">
+            <h3 style="margin-bottom: 1rem;">Let's Discuss Your Roblox Experience</h3>
+            <p style="margin-bottom: 2rem;">Reach out to me on Discord or Roblox to get started with your commission!</p>
+            
+            <div class="contact-section">
+                <div class="contact-item discord-item">
+                    <div class="contact-title">Discord</div>
+                    <div class="contact-id discord-id">rip_shadow05766</div>
+                </div>
+                <div class="contact-item roblox-item">
+                    <div class="contact-title">Roblox</div>
+                    <div class="contact-id roblox-id">@PiotrHaka</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 PiotrHaka. All rights reserved. Not affiliated with Roblox Corporation.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
